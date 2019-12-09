@@ -1,0 +1,12 @@
+{% extends 'mainApp/wrapper.html' %}
+
+{% block authentication %}
+<form action="{% url 'edit' %}" class="site-form" method="post">
+    {% csrf_token %}
+    {{form_user.as_p}}
+    {{form_profile.as_p}}
+    <button type="submit">Save changes</button>
+</form>
+<a href="/accounts/change_password"><button>Change password</button></a>
+
+{% endblock %}

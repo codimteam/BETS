@@ -1,0 +1,18 @@
+{% extends 'mainApp/wrapper.html' %}
+{% load static %}
+{% block mybets %}
+<h1 style="text-align: center"><strong>My Bets</strong></h1>
+<table>
+    <tr><th>Match</th><th>Coefficient</th><th>Cash</th><th>Possible win</th><th>Starts</th><th>Status</th></tr>
+    {% for bets in mybets %}
+<tr><td>{{bets.match}}</td>
+    <td><strong>{{bets.choice}}</strong>:{{bets.coefficient}}</td>
+    <td>{{bets.bet_cash}}</td>
+    <td>{{bets.possible_win}}</td>
+    <td>{{bets.match.game_time}}</td>
+    <td>{{bets.match.status}}</td>
+</tr>
+    {%endfor%}
+</table>
+
+{% endblock mybets %}

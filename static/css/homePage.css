@@ -1,0 +1,131 @@
+:root{
+	--main-bkcolor:#00bfa5;
+}
+
+body{
+	margin: 0;
+	padding: 0;
+	font-family: "Segoe UI";
+}
+
+#header{
+	display: flex;
+	width: 80%;
+	height: 65px;
+	margin: 0 auto;
+	justify-content: space-between;
+	align-items: center;
+}
+header{
+	background-color:var(--main-bkcolor); 
+	color: white;
+}
+
+header li{
+	display: inline;
+	margin-left: 60px;
+	font-size: 17px;
+}
+
+header h1{
+	font-weight: 400;
+	font-size: 35px;
+	border: 1px solid white;
+	padding: 0 4px;
+}
+
+/*------------------------------------------------------------------------*/
+#LLNS ul{
+	display: flex;
+	list-style: none inside;
+	width: 50%;
+	margin: 15px auto;
+	padding: 0;
+	justify-content: space-between;
+	text-align:center;
+}
+
+#LLNS li{
+	border: 1px solid black;
+	width: 177px;
+	padding:  8px 0;
+}
+
+/*------------------------------------------------------------------------*/
+#grid *{
+	margin-top: 0;
+}
+#grid{
+	display: flex;
+	justify-content: space-between;
+}
+#grid h3{
+	background-color: var(--main-bkcolor);
+	color: white;
+	font-weight: 400;
+	padding:0 20px;
+	margin-top: 0;
+}
+
+/*------------------------------------------------------------------------*/
+#bets{
+	width: 50%;
+	height: 1000px;
+}
+.slideshow{
+	border: 1px solid black;
+	height: 170px;
+	margin-bottom: 15px;
+}
+
+.betBlock{
+	border: 1px solid black;
+	margin-bottom: 30px; 
+}
+.betlist{
+	list-style: none;
+	padding: 0;
+}
+
+.team1,.team2{
+	border: 1px solid black;
+	display: flex;
+	justify-content: space-between;
+	width: 49%;
+	height: 25px;
+}
+.bet input{
+	background-color: var(--main-bkcolor); 
+	border: none;
+	color: white;
+	cursor: pointer;
+}
+.bet h4{
+	margin: 0 10px;
+	font-weight: 400;
+}
+.bet * *{
+	display: inline;
+}
+.bet{
+	display: flex;
+	width: 90%;
+	margin: 0 auto;
+	justify-content: space-between;
+	font-weight: 400;
+	margin-bottom: 15px;
+}
+
+
+/*------------------------------------------------------------------------*/
+#categories,#cart{
+	width: 16%;
+	border: 1px solid black;
+	height: 500px;
+}
+#categories{
+	margin-left: 120px;
+}
+#cart{
+	margin-right: 120px;
+}

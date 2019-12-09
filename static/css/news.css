@@ -1,0 +1,23 @@
+#news{
+	width: 90%;
+	margin: 0 auto;
+}
+
+#news  h2{
+	text-transform: uppercase;
+}
+#news img{
+	width:100%;
+}
+#news a{
+	text-decoration: none;	
+	color: black;
+}
+.new{
+	transition: 0.5s;
+	padding: 10px;
+	margin-bottom: 20px; 
+}
+.new:hover{
+	box-shadow: 0 0 10px #1de8b5;
+}

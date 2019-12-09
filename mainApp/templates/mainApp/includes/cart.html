@@ -1,0 +1,18 @@
+<div class="rightBar">
+		<h1>Cart</h1>
+	{% if user.is_authenticated %}
+		<form action="{% url 'add_to_cart'  %}" method="post" id="cartForm" style="display: none">
+			{% csrf_token %}
+			<input type="number" name="ev_id">
+			<input type="text" name="choice">
+			<input type="text" name="coff">
+			<input type="number" name="cash">
+			<input type="submit" name="submit_b">
+		</form>
+	<ul id="cart">
+		</ul>
+	{% else %}
+	    <h1 >If you want to bet, Firstly Login!</h1>
+	{% endif %}
+
+	</div>

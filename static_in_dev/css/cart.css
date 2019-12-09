@@ -1,0 +1,44 @@
+#cart{
+        list-style:none;
+        padding:10px;
+        margin:0;
+    }
+       #cart>li{
+       margin-bottom:20px;
+        padding:10px;
+        background-color:#E4E4E4;
+       }
+       #cart>li button{
+               background-color:#00bfa5;
+               border:none;
+        }
+.topBlock{
+ display:flex;
+    justify-content: space-between;
+    border-bottom:1px solid black;
+}
+
+.botBlock{
+    display:flex;
+    align-items:center;
+    margin-top:-10px;
+}
+.choice{
+    margin-right:20px;
+}
+.remove_choice{
+    margin-left:200px;
+    color:red;
+    font-size:30px;
+}
+.submDiv input{
+box-sizing:border-box;
+    width:60%;
+    height:35px;
+}
+.submDiv button{
+box-sizing  :border-box;
+    height:35px;
+
+    width:40%;
+}

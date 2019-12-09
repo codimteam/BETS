@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title>15xbet</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'main/mainTempl.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/includes/events.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/includes/cart.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/includes/news.css' %}">
+
+
+</head>
+<body>
+		
+		<header>
+			<h1 id="logo"><a href="31">1.5XBET</a></h1>
+			<nav>	
+				<ul>
+					<li><a href="31">LINE</a></li>
+					<li><a href="31">LIVE</a></li>
+					<li><a href="/help">HELP</a></li>
+				</ul>
+
+				<div id="rightBar">	
+					<ul>
+						<li><a href="31">time</a></li>
+						<li><a href="31">register</a></li>
+						<li><a>log in</a></li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+
+
+
+		<article>
+			<div id="leftBox">
+				{% include 'main/includes/helpBox.html' %}
+			</div>
+			<div id="rightBox">
+				{% include 'main/includes/cart.html' %}
+				{% include 'main/includes/news.html' %}
+			</div>
+			
+		</article>
+		
+		<footer>
+			<div id="footerLogo">
+				<h1>1.5XBET</h1>
+				<ul>
+					<li>find us on</li>
+					<li><a href="4">twiter</a></li>
+					<li><a href="4">instagram</a></li>
+					<li><a href="4">vk</a></li>
+				</ul>
+			</div>
+			<p>The personal information you provide (name, address, phone, e-mail, credit card number) is confidential and not subject to disclosure.
+	Your bank card data is transmitted only in encrypted form and is not stored on our Web server.
+	All operations with payment cards are in accordance with the requirements of Visa International and MasterCard WorldWide</p>
+		</footer>
+</body>
+</html>

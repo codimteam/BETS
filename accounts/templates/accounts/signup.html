@@ -1,0 +1,10 @@
+{% extends 'mainApp/wrapper.html' %}
+
+{% block authentication %}
+  <h1>Signup</h1>
+  <form class="signin-form" action="/accounts/signup/" method="post">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type='submit' value="Signup">
+  </form>
+{% endblock authentication %}

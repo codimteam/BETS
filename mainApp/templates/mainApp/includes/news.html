@@ -1,0 +1,13 @@
+{% load static %}
+<div id="news">
+	<h2>Latest News</h2>
+	{% for news in allnews %}
+	<a href="213">
+	<div class="new">
+		<img src="{{news.image.url}}">
+		<p class="topic">{{news.description}}</p>
+		<label class="newsTime">{{news.date_time}}</label>
+	</div>
+	</a>
+	{% endfor %}
+</div>

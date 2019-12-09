@@ -1,0 +1,43 @@
+{% extends 'mainApp/wrapper.html' %}
+
+{% block content %}
+<div id="events">
+	<h2>Upcoming Events:</h2>
+
+	<div class="event explanation">
+		<label id="cat-L">Category</label>
+		<div class="teams">
+			<label class="team1">Team1</label>
+			<div class="coefficients">
+				<div class="w1"><button>W1</button></div>
+				<div class="x"><button>X</button></div>
+				<div class="w2"><button>W2</button></div>
+			</div>
+			<label class="team2">Team2</label>
+		</div>
+		<label class="timeOfEvent">Starts</label>
+	</div>
+
+{% for match in allmatches %}
+	<div class='event'>
+		<p ><img src="{{match.categories.image.url}}" style="width:35px"></p>
+            <div class="teams">
+                <p class='team1'>{{match.team1}}</p>
+                <div class="coefficients">
+					{% if request.user.is_authenticated %}
+					<button class="w1" onclick="actInCart('{{match.id}}','w1',this)">{{match.win1}}</button>
+                    <button class="draw" onclick="actInCart('{{match.id}}','x',this)">{{match.draw}}</button>
+                    <button class="w2" onclick="actInCart('{{match.id}}','w2',this)">{{match.win2}}</button>
+					{% else %}
+					<button class="w1">{{match.win1}}</button>
+                    <button class="draw">{{match.draw}}</button>
+                    <button class="w2">{{match.win2}}</button>
+					{% endif %}
+                </div>
+                <p class='team2'>{{match.team2}}</p>
+            </div>
+			<label  class='event-time'> {{match.game_time.time}}</label>
+		</div>
+	{%endfor%}
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'mainApp/wrapper.html' %}
+{%load static%}
+{% block content %}
+<div id="events">
+	<h2>{{category}} upcoming events:</h2>
+
+	<div class="event explanation">
+		<label id="cat-L">category</label>
+		<div class="teams">
+			<label class="team1">team 1</label>
+			<div class="coefficients">
+				<div class="w1"><button>w1</button></div>
+				<div class="x"><button>x</button></div>
+				<div class="w2"><button>w2</button></div>
+			</div>
+			<label class="team2">team 2</label>
+		</div>
+		<label class="timeOfEvent">time</label>
+	</div>
+{% for event in matches %}
+		<div class='event'>
+
+			<p ><img src="{{event.categories.image.url}}" style="width:40px"></p>
+            <div class="teams">
+                <p class='team1'>{{event.team1}}</p>
+                <div class="coefficients">
+					{% if user.is_autenticated %}
+					<button class="w1" onclick="actInCart('{{event.id}}','w1',this)">{{event.win1}}</button>
+                    <button class="draw" onclick="actInCart('{{event.id}}','x',this)">{{event.draw}}</button>
+                    <button class="w2" onclick="actInCart('{{event.id}}','w2',this)">{{event.win2}}</button>
+					{% else %}
+					<button class="w1">{{event.win1}}</button>
+                    <button class="draw">{{event.draw}}</button>
+                    <button class="w2">{{event.win2}}</button>
+					{% endif%}
+                </div>
+                <p class='team2'>{{event.team2}}</p>
+            </div>
+			<label  class='event-time'> {{event.game_time.time}}</label>
+		</div>
+		{% endfor %}
+</div>
+
+
+{% endblock %}
