@@ -50,8 +50,8 @@ def change_match_status(matches):
                     bet.delete()
                 else:
                     add_to_played_matches(match)
-                    played_match = Played_Matches.objects.latest()
-                    add_to_bets_history(bet,user,played_match)
+                    played_match = Played_Matches.objects.order_by('-pk')[0]
+                    add_to_bets_history(bet, user, played_match)
                     match.delete()
                     bet.delete()
 
@@ -155,7 +155,8 @@ def mybets(request):
     mybets = Bets.objects.filter(client=request.user.username)
     allnews = News.objects.all()
     allmatches = Matches.objects.all()
-    bets = Bets_history.objects.all()
+    categories=Categories.objects.all()
+    bets = Bets_history.objects.filter(user=request.user)
     change_match_status(matches = allmatches)
     if request.user.is_authenticated:
         user_p = UserProfile.objects.get(user=request.user)
@@ -164,7 +165,8 @@ def mybets(request):
     context={'mybets':mybets,
              'allnews': allnews,
              'user_p':user_p,
-             'bets':bets
+             'bets':bets,
+             'categories':categories
              }
     return render(request, 'mainApp/mybets.html', context)
 

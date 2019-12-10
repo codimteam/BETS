@@ -7,18 +7,32 @@ from mainApp.models import *
 
 
 def signup_view(request):
+    news = News.objects.all()
+    categories = Categories.objects.all()
     if request.method == "POST":
         form = RegistrationForm(request.POST)
+        args = {
+            'categories': categories,
+
+            'allnews': news,
+            'form': form}
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect('index')
     else:
         form = RegistrationForm()
-    return render(request, 'accounts/signup.html', {'form': form})
+        args = {
+            'categories': categories,
+            'allnews': news,
+            'form': form}
+    return render(request, 'accounts/signup.html', args)
 
 
 def login_view(request):
+    news = News.objects.all()
+    categories = Categories.objects.all()
+
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -30,7 +44,12 @@ def login_view(request):
                 return redirect('index')
     else:
         form = AuthenticationForm()
-    return render(request, 'accounts/login.html', {'form':form})
+        args = {
+                'categories': categories,
+
+                'allnews': news,
+                'form':form}
+    return render(request, 'accounts/login.html',args)
 
 
 def logout_view(request):
@@ -57,11 +76,14 @@ def edit_profile(request):
               'form_profile': form_profile,
               'categories': categories,
               'user_p':user_p,
-              'news':news}
+              'allnews':news}
         return render(request, 'accounts/edit_profile.html', args)
 
 
 def change_password(request):
+    news = News.objects.all()
+    categories = Categories.objects.all()
+    user_p = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():

@@ -1,8 +1,10 @@
 {% extends 'mainApp/wrapper.html' %}
 
 {% block authentication %}
-  <h1>Log in</h1>
-  <form class="site-form" action= '{% url "login" %}' method="post">
+<div class="payblock">
+  <h2>Log in</h2>
+
+  <form action= '{% url "login" %}' method="post">
     {% csrf_token %}
     {{ form.as_p }}
     {% if request.GET.next %}
@@ -11,4 +13,5 @@
     <input type='submit' value="Login">
 
   </form>
+  </div>
 {% endblock authentication %}

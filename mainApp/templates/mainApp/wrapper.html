@@ -9,12 +9,31 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/news.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bet_table.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/pay.css' %}">
-
-
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/site_form.css' %}">
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript">
+function startTime()
+{
+var tm=new Date();
+var h=tm.getHours();
+var m=tm.getMinutes();
+var s=tm.getSeconds();
+m=checkTime(m);
+s=checkTime(s);
+document.getElementById('txt').innerHTML=h+":"+m+":"+s;
+t=setTimeout('startTime()',500);
+}
+function checkTime(i)
+{
+if (i<10)
+{
+i="0" + i;
+}
+return i;
+}
+</script>
 </head>
-<body>
+<body onload="startTime()">
 
 <header>
     <h1 id="logo"><a href="{%url 'index'%}">1.5XBET</a></h1>
@@ -35,7 +54,7 @@
                 {% if user.is_authenticated %}
                 <li><a><span>${{user_p.balance}}</span></a></li>
                 <li><a href="/payment_system">Add amount</a></li>
-                <li><a href="31">time</a></li>
+                <li ><a href="#" id="txt"></a></li>
                 <li><a href="/profile">Account:{{user}}</a></li>
                 <li><a href="#">
                     <form class="logout-link" action="{% url 'logout' %}" method="post">
