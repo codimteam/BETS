@@ -156,8 +156,9 @@ var cart=[]
 			console.log(cartForm.getElementsByTagName("input")[2].value);
 			console.log(cartForm.getElementsByTagName("input")[3].value);
 			console.log(cartForm.getElementsByTagName("input")[4].value);
+						deleteFromCart(id,choice);
+
 			inputs[5].click();
 
-			deleteFromCart(bet.ev_id,bet.ev_choice);
 		})
 //		$('#cart').on('click','.remove_choice',deleteFromCart(event))

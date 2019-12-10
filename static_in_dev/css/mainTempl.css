@@ -1,8 +1,7 @@
 article{
 	margin: 100px 30px;
-	height: 1000px;
 	background-color: white;
-	
+	display: flex;
 }
 
 :root {
@@ -20,17 +19,15 @@ body{
 
 
 #rightBox{
-	float: right;
 	width: 25%;
 	box-sizing: border-box;
-
 }
 
 #leftBox{
-	float: left;
 	width: 75%;
 	box-sizing: border-box;
 	border-right: 1px solid grey;
+	min-height: 1000px;
 }
 
 
@@ -119,7 +116,7 @@ footer h1{
 	text-align: center;
 }
 footer ul{
-	
+
 	padding: 0;
 	list-style: none;
 	width: 10%;
@@ -132,7 +129,7 @@ footer li{
 footer li a{
 	text-decoration: none;
 	color: white;
-	
+
 }
 footer li a:hover{
 	text-decoration: none;
@@ -140,6 +137,6 @@ footer li a:hover{
 }
 footer p{
 	font-size: 12px;
-	border-top: 1px solid grey; 
+	border-top: 1px solid grey;
 	color: grey;
 }

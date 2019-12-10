@@ -12,7 +12,16 @@
     <td>{{bets.match.game_time}}</td>
     <td>{{bets.match.status}}</td>
 </tr>
-    {%endfor%}
+    {% endfor %}
+    {% for bet in bets %}
+        <tr><td>{{bet.match}}</td>
+        <td><strong>{{bet.choice}}</strong>:{{bet.coefficient}}</td>
+        <td>{{bet.bet_cash}}</td>
+        <td>{{bet.possible_win}}</td>
+        <td>{{bet.match.game_time}}</td>
+        <td>{{bet.match.status}}</td>
+</tr>
+    {% endfor %}
 </table>
 
 {% endblock mybets %}

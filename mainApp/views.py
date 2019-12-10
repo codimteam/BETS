@@ -1,11 +1,28 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .forms import *
 import decimal
 import random
+
+
+
+
+def add_to_played_matches(match):
+    p_match = Played_Matches.objects.create(categories=match.categories, team1=match.team1, team2=match.team2,slug=match.slug,
+                                                win1=match.win1,win2=match.win2,draw=match.draw,game_time=match.game_time,
+                                                game_end=match.game_end,status=match.status,winner=match.winner)
+    p_match.save()
+
+
+def add_to_bets_history(bet,user,played_match):
+    bet_user = Bets_history.objects.create(user = user, match=played_match, choice=bet.choice, coefficient=bet.coefficient,
+                                           bet_cash=bet.bet_cash, possible_win=bet.possible_win, bet_date=bet.bet_date,
+                                           winner=bet.winner)
+    bet_user.save()
+
 
 
 def change_match_status(matches):
@@ -20,11 +37,24 @@ def change_match_status(matches):
             bets = Bets.objects.filter(match=match)
             for bet in bets:
                 bet.winner = match.winner
+                bet.save()
                 user = User.objects.get(username=bet.client)
                 client = UserProfile.objects.get(user=user)
                 if bet.choice == bet.winner:
                     client.balance += decimal.Decimal(bet.possible_win)
                     client.save()
+                    add_to_played_matches(match)
+                    played_match = Played_Matches.objects.all().order_by('-pk')[0]
+                    add_to_bets_history(bet,user,played_match)
+                    match.delete()
+                    bet.delete()
+                else:
+                    add_to_played_matches(match)
+                    played_match = Played_Matches.objects.latest()
+                    add_to_bets_history(bet,user,played_match)
+                    match.delete()
+                    bet.delete()
+
         else:
             if match.game_time < timezone.now() < match.game_end:
                 status = 'GOING'
@@ -32,24 +62,29 @@ def change_match_status(matches):
                 match.save()
 
 
+
 def index(request):
+    allcategories = Categories.objects.all()
+    allmatches = Matches.objects.all().order_by('game_time')
     if request.user.is_authenticated:
         user_p = UserProfile.objects.get(user=request.user)
+        change_match_status(matches=allmatches)
     else:
         user_p = 'U should login.'
     allnews = News.objects.all()
-    allcategories = Categories.objects.all()
-    allmatches = Matches.objects.all().order_by('game_time')
+
+
     context = {'categories': allcategories,
                'allmatches': allmatches,
                'allnews': allnews,
                'user_p':user_p
                }
-    change_match_status(matches=allmatches)
+
     return render(request, 'mainApp/homePage.html', context)
 
 
 def news(request):
+    categories=Categories.objects.all()
     allnews = News.objects.all()
     if request.user.is_authenticated:
         user_p = UserProfile.objects.get(user=request.user)
@@ -59,7 +94,8 @@ def news(request):
     change_match_status(matches=allmatches)
     context = {
         'allnews' : allnews,
-         'user_p' : user_p}
+        'user_p' : user_p,
+        'categories':categories}
     return render(request, 'mainApp/news.html', context)
 
 
@@ -91,12 +127,17 @@ def add_to_cart(request):
 
     match=Matches.objects.get(pk=match_id)
     bet_date = timezone.now()
-    new_bet = Bets.objects.create(client=request.user.username, match=match, choice=choice,
+    user_p=UserProfile.objects.get(user=request.user)
+    if user_p.balance >= decimal.Decimal(bet_money):
+        new_bet = Bets.objects.create(client=request.user.username, match=match, choice=choice,
                                   coefficient=coefficient, bet_cash=bet_money,bet_date=bet_date)
-    new_bet.save()
-    user_p = UserProfile.objects.get(user=request.user)
-    user_p.balance = decimal.Decimal(user_p.balance)-decimal.Decimal(bet_money)
-    user_p.save()
+        new_bet.save()
+        user_p.balance = decimal.Decimal(user_p.balance) - decimal.Decimal(bet_money)
+        user_p.save()
+        message='SUCCESS'
+    else:
+        message='You dont have enough money'
+
     categories = Categories.objects.all()
     matches = Matches.objects.all()
     allnews = News.objects.all()
@@ -106,7 +147,8 @@ def add_to_cart(request):
     context = {'categories': categories,
                'matches':matches,
                'allnews': allnews,
-               'user_p':user_p}
+               'user_p':user_p,
+               'message':message}
     return render(request, 'mainApp/events.html', context)
 
 
@@ -114,15 +156,18 @@ def mybets(request):
     mybets = Bets.objects.filter(client=request.user.username)
     allnews = News.objects.all()
     allmatches = Matches.objects.all()
-    change_match_status(matches=allmatches)
+    bets = Bets_history.objects.all()
+    change_match_status(matches = allmatches)
     if request.user.is_authenticated:
         user_p = UserProfile.objects.get(user=request.user)
     else:
         user_p = 'U should login.'
     context={'mybets':mybets,
              'allnews': allnews,
-             'user_p':user_p}
-    return render(request,'mainApp/mybets.html',context)
+             'user_p':user_p,
+             'bets':bets
+             }
+    return render(request, 'mainApp/mybets.html', context)
 
 
 def payment_system(request):
@@ -160,6 +205,20 @@ def add_on_balance(request):
     allmatches = Matches.objects.all()
     change_match_status(matches=allmatches)
     return render(request,'mainApp/pay.html', context)
+
+
+def profile(request):
+    allnews = News.objects.all()
+    allcategories = Categories.objects.all()
+    allmatches = Matches.objects.all().order_by('game_time')
+    user = UserProfile.objects.get(user=request.user)
+    context = {'categories': allcategories,
+               'allmatches': allmatches,
+               'allnews': allnews,
+               'user_p': user
+               }
+    change_match_status(matches=allmatches)
+    return render(request,'accounts/profile.html',context)
 
 
 

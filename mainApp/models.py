@@ -65,7 +65,7 @@ class Matches(models.Model):
     game_time = models.DateTimeField()
     game_end = models.DateTimeField(blank=True)
     status = models.CharField(max_length=10,default='EXPECTED', choices=MATCH_STATUS)
-    winner = models.CharField(max_length=5, default='UNKNOWN', choices=WINNER)
+    winner = models.CharField(max_length=10, default='UNKNOWN', choices=WINNER)
 
     def __str__(self):
         return self.team1 + " vs " + self.team2
@@ -92,7 +92,7 @@ class Bets(models.Model):
     winner = models.CharField(max_length=5, default="UNKNOWN", editable=True)
 
     def __str__(self):
-        return self.client +': '+self.match.team1 + " vs " + self.match.team2
+        return self.client + ': ' + self.match.team1 + " vs " + self.match.team2
 
 
 def pre_save_possible_win(sender,instance, *args,**kwargs):
@@ -134,6 +134,48 @@ class Payments(models.Model):
 
     def __str__(self):
         return 'Payed-' + self.user.username
+
+
+
+
+
+
+
+class Played_Matches(models.Model):
+    categories = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    team1 = models.CharField(max_length=200)
+    team2 = models.CharField(max_length=200)
+    slug = models.SlugField(default="", blank=True)
+    win1 = models.DecimalField(max_digits=9,decimal_places=2)
+    win2 = models.DecimalField(max_digits=9,decimal_places=2)
+    draw = models.DecimalField(max_digits=9,decimal_places=2)
+    game_time = models.DateTimeField()
+    game_end = models.DateTimeField(blank=True)
+    status = models.CharField(max_length=10)
+    winner = models.CharField(max_length=5)
+
+    def __str__(self):
+        return self.team1 + " vs " + self.team2
+
+
+class Bets_history(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    match = models.ForeignKey(Played_Matches, on_delete=models.CASCADE)
+    choice = models.CharField(max_length=5, default="", editable=True)
+    coefficient = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+    bet_cash = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+    possible_win = models.DecimalField(max_digits=9, decimal_places=2, default="")
+    bet_date = models.DateTimeField()
+    winner = models.CharField(max_length=5, default="UNKNOWN", editable=True)
+
+
+    def __str__(self):
+        return self.user.username + ': ' + self.match.team1 + " vs " + self.match.team2
+
+
+
+
+
 
 
 

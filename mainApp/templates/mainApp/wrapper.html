@@ -8,7 +8,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/cart.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/news.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bet_table.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/site_form.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pay.css' %}">
+
+
 
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
 </head>
@@ -28,14 +30,13 @@
             <li><a href="/mybets">My bets</a></li>
             {% endif %}
         </ul>
-
         <div id="rightBar">
             <ul>
                 {% if user.is_authenticated %}
                 <li><a><span>${{user_p.balance}}</span></a></li>
                 <li><a href="/payment_system">Add amount</a></li>
                 <li><a href="31">time</a></li>
-                <li><a href="/accounts/profile">Account:{{user}}</a></li>
+                <li><a href="/profile">Account:{{user}}</a></li>
                 <li><a href="#">
                     <form class="logout-link" action="{% url 'logout' %}" method="post">
                         {% csrf_token %}

@@ -35,7 +35,6 @@ var cart=[]
 
 		function createBlock(bet){
 			var newEvent=document.createElement("LI");
-			newEvent.className="onebet";
 
 			var	event_teams=document.createElement('p');
 			event_teams.className='event_teams';
@@ -63,18 +62,19 @@ var cart=[]
 			var remove_choice=document.createElement('p');
 			remove_choice.className='remove_choice';
 			remove_choice.innerHTML='x';
-
+			remove_choice.onclick=function(){
+			deleteFromCart(bet.ev_id,bet.ev_choice)};
 
 			var botBlock=document.createElement('div');
 			botBlock.className='botBlock';
-			botBlock.appendChild(choice_coff);
 			botBlock.appendChild(choice);
+			botBlock.appendChild(choice_coff);
+
 			botBlock.appendChild(remove_choice);
 
             var submCash=document.createElement("input");
             submCash.className="submCash";
             submCash.type="number";
-            submCash.value=223;
 
 
 			var submB=document.createElement('button');
@@ -86,9 +86,11 @@ var cart=[]
     		submB.innerHTML="make a bet";
 
 
+
             var submDiv=document.createElement("div");
             submDiv.appendChild(submCash);
             submDiv.appendChild(submB);
+            submDiv.className="submDiv";
 
 			newEvent.appendChild(topBlock);
 			newEvent.appendChild(botBlock);
@@ -145,6 +147,7 @@ var cart=[]
 
 			var cartForm=document.getElementById("cartForm");
 			var inputs=cartForm.getElementsByTagName("input");
+
 			inputs[1].value=id;
 			inputs[2].value=choice;
 			inputs[3].value=coff;
@@ -154,4 +157,7 @@ var cart=[]
 			console.log(cartForm.getElementsByTagName("input")[3].value);
 			console.log(cartForm.getElementsByTagName("input")[4].value);
 			inputs[5].click();
+
+			deleteFromCart(bet.ev_id,bet.ev_choice);
 		})
+//		$('#cart').on('click','.remove_choice',deleteFromCart(event))

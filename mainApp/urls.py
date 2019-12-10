@@ -9,5 +9,6 @@ urlpatterns = [
     path('mybets/', views.mybets, name="mybets"),
     path('news/', views.news,name='news'),
     path('payment_system/',views.payment_system, name='payment_system'),
-    path('add_on_balance', views.add_on_balance, name='add_on_balance')
+    path('add_on_balance', views.add_on_balance, name='add_on_balance'),
+    path('profile/', views.profile, name='profile'),
 ]

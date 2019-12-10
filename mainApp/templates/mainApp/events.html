@@ -24,7 +24,7 @@
             <div class="teams">
                 <p class='team1'>{{event.team1}}</p>
                 <div class="coefficients">
-					{% if user.is_autenticated %}
+					{% if user.is_authenticated %}
 					<button class="w1" onclick="actInCart('{{event.id}}','w1',this)">{{event.win1}}</button>
                     <button class="draw" onclick="actInCart('{{event.id}}','x',this)">{{event.draw}}</button>
                     <button class="w2" onclick="actInCart('{{event.id}}','w2',this)">{{event.win2}}</button>

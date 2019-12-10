@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth import login, logout, update_session_auth_hash
 from .forms import *
+from mainApp.models import *
 
 
 def signup_view(request):
@@ -38,12 +39,10 @@ def logout_view(request):
         return redirect('index')
 
 
-def profile(request):
-    context={'user':request.user.userprofile}
-    return render(request,'accounts/profile.html',context)
-
-
 def edit_profile(request):
+    news = News.objects.all()
+    categories = Categories.objects.all()
+    user_p = UserProfile.objects.get(user=request.user)
     if request.method == "POST":
         form_user = EditProfileForm(request.POST, instance=request.user)
         form_profile = ProfileForm(request.POST, instance=request.user.userprofile)
@@ -55,7 +54,10 @@ def edit_profile(request):
         form_user = EditProfileForm(request.POST, instance=request.user)
         form_profile = ProfileForm(request.POST, instance=request.user.userprofile)
         args={'form_user':form_user,
-              'form_profile': form_profile}
+              'form_profile': form_profile,
+              'categories': categories,
+              'user_p':user_p,
+              'news':news}
         return render(request, 'accounts/edit_profile.html', args)
 
 

@@ -1,6 +1,6 @@
 {% extends 'mainApp/wrapper.html' %}
 
-{% block authentication %}
+{% block mybets %}
 <h1>Profile--->>>{{user.user.username}}</h1>
 <p>Name: {{user.user.first_name}}</p>
 <p>Surname: {{user.user.last_name}}</p>
@@ -9,4 +9,4 @@
 <p>City: {{user.city}}</p>
 <p>Birthday: {{user.birth_date|date:"Y-m-d"}}</p>
 <a href="/accounts/profile/edit"><button>Edit information</button></a>
-{% endblock %}
+{% endblock  %}

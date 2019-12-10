@@ -1,8 +1,7 @@
 article{
 	margin: 100px 30px;
-	height: 1000px;
 	background-color: white;
-	
+	display: flex;
 }
 
 :root {
@@ -20,126 +19,14 @@ body{
 
 
 #rightBox{
-	float: right;
 	width: 25%;
 	box-sizing: border-box;
-
+	padding: 10px;
 }
 
 #leftBox{
-	float: left;
 	width: 75%;
+	padding: 10px;
 	box-sizing: border-box;
 	border-right: 1px solid grey;
-}
-
-
-
-header{
-	background-color: var(--dark-gray);
-	position: fixed;
-	width: 100%;
-	top:0;
-	box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-	z-index: 100;
-}
-nav a{
-	transition: 0.5s;
-	display: block;
-	padding: 10px;
-	color: white;
-	text-decoration: none;
-}
-nav a:hover{
-	color:  var(--color1);
-}
-nav li:after{
-	transition: 0.5s;
-	display: block;
-	content: "";
-	width: 0;
-	height: 8px;
-	background-color: var(--color1);
-}
-nav li:hover:after{
-	width: 100%;
-}
-
-
-#rightBar a{
-	padding: 10px 30px;
-}
-
-#logo{
-	position: absolute;
-	margin: 0 40px;
-}
-#logo a{
-	display: block;
-	padding: 10px;
-	color: white;
-	text-decoration: none;
-
-	transition: 0.5s;
-	background-color: var(--color1);
-	color: var(--dark-gray);
-}
-#logo a:hover{
-	padding-top: 20px;
-}
-
-
-nav{
-	display: flex;
-	justify-content: space-between;
-	width: 80%;
-	margin: 0 200px;
-}
-nav ul{
-	margin: 0;
-	padding: 0;
-}
-nav li{
-	display: inline;
-	float: left;
-}
-
-
-footer{
-	background-color: #263238;
-	padding: 10px;
-}
-#footerLogo{
-	display: flex;
-}
-footer h1{
-	color:white;
-	width: 20%;
-	margin-right: 200px;
-	text-align: center;
-}
-footer ul{
-	
-	padding: 0;
-	list-style: none;
-	width: 10%;
-}
-footer li{
-	color: white;
-	text-transform: uppercase;
-}
-
-footer li a{
-	text-decoration: none;
-	color: white;
-	
-}
-footer li a:hover{
-	text-decoration: none;
-	color: blue;
-}
-footer p{
-	font-size: 12px;
-	border-top: 1px solid grey; 
-	color: grey;
 }

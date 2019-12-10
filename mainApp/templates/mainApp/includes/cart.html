@@ -1,5 +1,6 @@
 <div class="rightBar">
 		<h1>Cart</h1>
+	<h1>{{message}}</h1>
 	{% if user.is_authenticated %}
 		<form action="{% url 'add_to_cart'  %}" method="post" id="cartForm" style="display: none">
 			{% csrf_token %}
@@ -14,5 +15,4 @@
 	{% else %}
 	    <h1 >If you want to bet, Firstly Login!</h1>
 	{% endif %}
-
 	</div>
