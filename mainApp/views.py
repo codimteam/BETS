@@ -62,7 +62,6 @@ def change_match_status(matches):
                 match.save()
 
 
-
 def index(request):
     allcategories = Categories.objects.all()
     allmatches = Matches.objects.all().order_by('game_time')

@@ -1,0 +1,27 @@
+.site-form{
+    margin-top: 60px;
+/*     border: 1px solid #00dba0; */
+    padding: 20px;
+}
+
+.site-form input,
+.site-form textarea{
+    display:block;
+    margin: 20px 0 0 0;
+    padding: 10px;
+    width: 100%;
+    outline:none;
+    background:none;
+    border:none;
+    border-bottom:1px solid #00dba0;
+}
+.site-form Label{
+    color:black;
+}
+.site-form input[type = "submit"]{
+    background: #00dba0;
+    border:0;
+    color: #fff;
+    border-radius: 4px;
+    margin: 10px 0;
+}
